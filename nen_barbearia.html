@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <!-- ============================================
+       INFORMAÇÕES TÉCNICAS DA PÁGINA
+       ============================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nenê Barbearia: cortes clássicos, degradê, barba terapia e agendamento online." />
+  <meta name="theme-color" content="#0A0A0C" />
+  <title>Nenê Barbearia | Tradição &amp; Estilo</title>
+  <!-- Framework de estilos: Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Configuração personalizada do Tailwind -->
+  <script src="tailwind-config.js"></script>
+  <!-- Fontes: Kaushan Script (assinatura), Cinzel (títulos) e Inter (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=Kaushan+Script&display=swap" rel="stylesheet" />
+  <!-- Biblioteca de ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Estilos personalizados separados -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="font-sans antialiased selection:bg-silver-200 selection:text-obsidian">
+
+  <!-- ==================== 1. CABEÇALHO FIXO ==================== -->
+  <header class="fixed top-0 inset-x-0 z-50 bg-obsidian/92 backdrop-blur-md border-b border-silver-300/15 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logotipo Compacto Fiel ao Brasão Oval -->
+        <a href="#inicio" class="flex items-center gap-3 group">
+          <div class="relative flex items-center justify-center group-hover:scale-105 transition-transform">
+            <svg class="w-24 h-12 sm:w-28 sm:h-14 drop-shadow-[0_4px_12px_rgba(255,255,255,0.12)]" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="navSilverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFFFFF"/>
+                  <stop offset="45%" stop-color="#D4D4D8"/>
+                  <stop offset="100%" stop-color="#71717A"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="110" cy="60" rx="104" ry="54" fill="#0A0A0C" stroke="url(#navSilverGrad)" stroke-width="4"/>
+              <ellipse cx="110" cy="60" rx="96" ry="46" stroke="url(#navSilverGrad)" stroke-width="1.2" opacity="0.75"/>
+              <!-- Mini Barber Poles -->
+              <rect x="24" y="38" width="9" height="44" rx="4.5" fill="#18181C" stroke="url(#navSilverGrad)" stroke-width="1.5"/>
+              <path d="M25 46L32 51M25 56L32 61M25 66L32 71" stroke="#E4E4E7" stroke-width="2"/>
+              <rect x="187" y="38" width="9" height="44" rx="4.5" fill="#18181C" stroke="url(#navSilverGrad)" stroke-width="1.5"/>
+              <path d="M188 46L195 51M188 56L195 61M188 66L195 71" stroke="#E4E4E7" stroke-width="2"/>
+              <!-- Tipografia Nenê -->
+              <text x="110" y="64" text-anchor="middle" fill="url(#navSilverGrad)" style="font-family: 'Kaushan Script', cursive; font-size: 38px; font-weight: 400;">Nenê</text>
+              <path d="M62 72 Q110 67 158 72" stroke="url(#navSilverGrad)" stroke-width="2.2" stroke-linecap="round"/>
+              <text x="110" y="88" text-anchor="middle" fill="#D4D4D8" style="font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700; letter-spacing: 0.24em;">BARBEARIA</text>
+            </svg>
+          </div>
+          <div class="hidden sm:block">
+            <span class="font-script text-2xl text-silver-metallic block leading-none">Nenê</span>
+            <span class="font-serif text-[10px] font-bold uppercase tracking-[0.28em] text-silver-300 block mt-1">BARBEARIA</span>
+          </div>
+        </a>
+
+        <!-- Navegação Desktop -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-silver-300">
+          <a href="#inicio" class="hover:text-white transition-colors">Início</a>
+          <a href="#catalogo" class="hover:text-white transition-colors">Catálogo de Cortes</a>
+          <a href="#agendamento" class="hover:text-white transition-colors">Agendamento</a>
+          <a href="#contato" class="hover:text-white transition-colors">Contato</a>
+        </nav>
+
+        <!-- Ações Rápidas & Menu Mobile -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button onclick="openWhatsappConfigModal()" class="p-2.5 rounded-xl bg-graphite hover:bg-white/10 text-silver-300 hover:text-emerald-400 border border-silver-300/15 transition-colors" title="Configurar WhatsApp da Barbearia">
+            <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+          </button>
+
+          <button onclick="openMyBookingsModal()" class="relative p-2.5 rounded-xl bg-graphite hover:bg-white/10 text-silver-200 border border-silver-300/15 transition-colors" title="Meus Agendamentos">
+            <i class="fa-regular fa-calendar-check text-silver-200"></i>
+            <span id="header-badge-count" class="hidden absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full btn-silver-metallic text-obsidian text-[11px] font-bold flex items-center justify-center">0</span>
+          </button>
+
+          <a href="#agendamento" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl btn-silver-metallic font-bold text-sm transition-all">
+            <i class="fa-solid fa-scissors text-xs"></i>
+            <span>Agendar Agora</span>
+          </a>
+
+          <!-- Botão Hamburger Mobile -->
+          <button id="mobile-menu-btn" aria-label="Abrir Menu" class="md:hidden p-2.5 rounded-xl bg-graphite text-silver-200 border border-silver-300/15">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Menu Mobile -->
+    <div id="mobile-menu" class="hidden md:hidden bg-charcoal border-b border-silver-300/15 px-4 pt-3 pb-6 space-y-2">
+      <a href="#inicio" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-xl text-silver-200 hover:bg-graphite hover:text-white font-medium">Início</a>
+      <a href="#catalogo" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-xl text-silver-200 hover:bg-graphite hover:text-white font-medium">Catálogo de Cortes</a>
+      <a href="#agendamento" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-xl text-silver-200 hover:bg-graphite hover:text-white font-medium">Agendamento</a>
+      <a href="#contato" onclick="closeMobileMenu()" class="block px-4 py-3 rounded-xl text-silver-200 hover:bg-graphite hover:text-white font-medium">Contato</a>
+      <div class="pt-2">
+        <a href="#agendamento" onclick="closeMobileMenu()" class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl btn-silver-metallic font-bold">
+          <i class="fa-solid fa-scissors"></i>
+          <span>Agendar Agora</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. SEÇÃO HERO ==================== -->
+  <section id="inicio" class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 hero-pattern border-b border-silver-300/10 overflow-hidden">
+    <!-- Brilho metálico sutil -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-silver-200/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Coluna Texto -->
+        <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-graphite border border-silver-300/25 text-silver-200 text-xs font-serif font-semibold uppercase tracking-[0.2em]">
+            <i class="fa-solid fa-star text-[10px] text-silver-300"></i>
+            <span>Tradição Clássica • Aço &amp; Navalha</span>
+          </div>
+
+          <h1 class="leading-tight">
+            <span class="font-script text-5xl sm:text-6xl lg:text-7xl text-silver-metallic block">Nenê</span>
+            <span class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-[0.25em] text-silver-100 block mt-1">
+              BARBEARIA
+            </span>
+          </h1>
+
+          <p class="text-silver-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            Precisão cirúrgica na navalha, degradê impecável e o ritual tradicional de barba terapia com toalha quente em um ambiente exclusivo para você.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#agendamento" class="w-full sm:w-auto px-8 py-4 rounded-xl btn-silver-metallic font-bold text-base transition-all flex items-center justify-center gap-2.5">
+              <i class="fa-regular fa-calendar-plus text-lg"></i>
+              <span>Agendar Meu Horário</span>
+            </a>
+            <a href="#catalogo" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-graphite hover:bg-white/10 text-silver-100 font-semibold text-base border border-silver-300/20 transition-all flex items-center justify-center gap-2">
+              <span>Ver Catálogo</span>
+              <i class="fa-solid fa-arrow-down text-xs text-silver-300"></i>
+            </a>
+          </div>
+
+          <!-- Diferenciais Rápidos -->
+          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-silver-300/15 max-w-lg mx-auto lg:mx-0">
+            <div>
+              <p class="font-serif text-2xl sm:text-3xl font-bold text-silver-100">4.9★</p>
+              <p class="text-xs text-silver-400 mt-0.5">+1.200 Clientes</p>
+            </div>
+            <div>
+              <p class="font-serif text-2xl sm:text-3xl font-bold text-silver-200">100%</p>
+              <p class="text-xs text-silver-400 mt-0.5">Toalha Quente</p>
+            </div>
+            <div>
+              <p class="font-serif text-2xl sm:text-3xl font-bold text-silver-100">VIP</p>
+              <p class="text-xs text-silver-400 mt-0.5">Hora Marcada</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna Visual: Brasão Oval Vetorial Fiel à Imagem Enviada -->
+        <div class="lg:col-span-6">
+          <div class="relative mx-auto max-w-xl">
+            <div class="rounded-3xl bg-gradient-to-b from-graphite to-charcoal p-5 sm:p-8 border border-silver-300/25 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] relative overflow-hidden">
+              
+              <!-- SVG Vetorial Detalhado do Brasão Oval "Nenê BARBEARIA" -->
+              <svg class="w-full h-auto drop-shadow-[0_14px_28px_rgba(0,0,0,0.85)]" viewBox="0 0 680 410" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Brasão Oficial Nenê Barbearia">
+                <defs>
+                  <!-- Gradiente Prata Escovado Principal -->
+                  <linearGradient id="metalSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="28%" stop-color="#E4E4E7"/>
+                    <stop offset="52%" stop-color="#A1A1AA"/>
+                    <stop offset="78%" stop-color="#F4F4F5"/>
+                    <stop offset="100%" stop-color="#71717A"/>
+                  </linearGradient>
+
+                  <!-- Gradiente Vertical Metálico para Tipografia Nenê -->
+                  <linearGradient id="scriptMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFFFFF"/>
+                    <stop offset="45%" stop-color="#E4E4E7"/>
+                    <stop offset="75%" stop-color="#A1A1AA"/>
+                    <stop offset="100%" stop-color="#D4D4D8"/>
+                  </linearGradient>
+
+                  <!-- Gradiente Cilíndrico para Barber Poles -->
+                  <linearGradient id="poleCylinder" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#52525B"/>
+                    <stop offset="30%" stop-color="#F4F4F5"/>
+                    <stop offset="55%" stop-color="#A1A1AA"/>
+                    <stop offset="85%" stop-color="#27272A"/>
+                    <stop offset="100%" stop-color="#71717A"/>
+                  </linearGradient>
+
+                  <!-- Fundo Preto Texturizado Radial -->
+                  <radialGradient id="plaqueBg" cx="50%" cy="45%" r="55%">
+                    <stop offset="0%" stop-color="#1C1C21"/>
+                    <stop offset="70%" stop-color="#0E0E11"/>
+                    <stop offset="100%" stop-color="#070709"/>
+                  </radialGradient>
+
+                  <!-- Sombra 3D para elementos metálicos -->
+                  <filter id="embossShadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.85"/>
+                  </filter>
+
+                  <!-- ClipPaths para os dois Barber Poles -->
+                  <clipPath id="leftPoleClip">
+                    <rect x="92" y="138" width="28" height="134" rx="4"/>
+                  </clipPath>
+                  <clipPath id="rightPoleClip">
+                    <rect x="560" y="138" width="28" height="134" rx="4"/>
+                  </clipPath>
+                </defs>
+
+                <!-- Moldura Oval Externa Metálica -->
+                <ellipse cx="340" cy="205" rx="326" ry="192" fill="url(#metalSilver)" filter="url(#embossShadow)"/>
+                <!-- Canal Escuro entre Molduras -->
+                <ellipse cx="340" cy="205" rx="315" ry="182" fill="#09090B"/>
+                <!-- Filete Interno Prateado -->
+                <ellipse cx="340" cy="205" rx="307" ry="174" fill="url(#plaqueBg)" stroke="url(#metalSilver)" stroke-width="3.5"/>
+                <!-- Linha Fina Decorativa Interna -->
+                <ellipse cx="340" cy="205" rx="297" ry="165" stroke="url(#metalSilver)" stroke-width="1.2" opacity="0.55"/>
+
+                <!-- TOPO: TESOURA CRUZADA & ARABESCOS SIMÉTRICOS -->
+                <g filter="url(#embossShadow)">
+                  <!-- Tesoura Clássica -->
+                  <g transform="translate(340, 82)">
+                    <line x1="-18" y1="-26" x2="14" y2="20" stroke="url(#metalSilver)" stroke-width="4.5" stroke-linecap="round"/>
+                    <line x1="18" y1="-26" x2="-14" y2="20" stroke="url(#metalSilver)" stroke-width="4.5" stroke-linecap="round"/>
+                    <circle cx="0" cy="-2" r="2.2" fill="#09090B"/>
+                    <circle cx="-16" cy="26" r="8" fill="none" stroke="url(#metalSilver)" stroke-width="4"/>
+                    <circle cx="16" cy="26" r="8" fill="none" stroke="url(#metalSilver)" stroke-width="4"/>
+                  </g>
+
+                  <!-- Arabesco Esquerdo -->
+                  <path d="M298 76 C272 60, 232 62, 222 80 C216 90, 228 98, 236 90 C242 84, 234 76, 228 80" stroke="url(#metalSilver)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+                  <line x1="196" y1="102" x2="294" y2="102" stroke="url(#metalSilver)" stroke-width="1.8" opacity="0.85"/>
+
+                  <!-- Arabesco Direito -->
+                  <path d="M382 76 C408 60, 448 62, 458 80 C464 90, 452 98, 444 90 C438 84, 446 76, 452 80" stroke="url(#metalSilver)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+                  <line x1="386" y1="102" x2="484" y2="102" stroke="url(#metalSilver)" stroke-width="1.8" opacity="0.85"/>
+                </g>
+
+                <!-- BARBER POLE ESQUERDO + ESTRELA LATERAL -->
+                <g filter="url(#embossShadow)">
+                  <!-- Estrela Lateral Esquerda -->
+                  <line x1="56" y1="210" x2="80" y2="210" stroke="url(#metalSilver)" stroke-width="1.6"/>
+                  <line x1="58" y1="216" x2="80" y2="216" stroke="url(#metalSilver)" stroke-width="1.2" opacity="0.7"/>
+                  <polygon points="68,225 71,233 80,233 73,238 75,246 68,241 61,246 63,238 56,233 65,233" fill="url(#metalSilver)"/>
+
+                  <!-- Esfera Superior & Base -->
+                  <circle cx="106" cy="122" r="14" fill="url(#poleCylinder)"/>
+                  <rect x="88" y="133" width="36" height="6" rx="3" fill="url(#poleCylinder)"/>
+                  <!-- Cilindro Listrado Preto e Prata -->
+                  <rect x="92" y="138" width="28" height="134" fill="#111114"/>
+                  <g clip-path="url(#leftPoleClip)">
+                    <path d="M84 152 L128 126 M84 176 L128 150 M84 200 L128 174 M84 224 L128 198 M84 248 L128 222 M84 272 L128 246 M84 296 L128 270" stroke="url(#poleCylinder)" stroke-width="11"/>
+                  </g>
+                  <rect x="92" y="138" width="28" height="134" stroke="url(#metalSilver)" stroke-width="2" fill="none"/>
+                  <!-- Base Inferior & Esfera -->
+                  <rect x="88" y="271" width="36" height="6" rx="3" fill="url(#poleCylinder)"/>
+                  <circle cx="106" cy="288" r="14" fill="url(#poleCylinder)"/>
+                </g>
+
+                <!-- BARBER POLE DIREITO + ESTRELA LATERAL -->
+                <g filter="url(#embossShadow)">
+                  <!-- Estrela Lateral Direita -->
+                  <line x1="600" y1="210" x2="624" y2="210" stroke="url(#metalSilver)" stroke-width="1.6"/>
+                  <line x1="600" y1="216" x2="622" y2="216" stroke="url(#metalSilver)" stroke-width="1.2" opacity="0.7"/>
+                  <polygon points="612,225 615,233 624,233 617,238 619,246 612,241 605,246 607,238 600,233 609,233" fill="url(#metalSilver)"/>
+
+                  <!-- Esfera Superior & Base -->
+                  <circle cx="574" cy="122" r="14" fill="url(#poleCylinder)"/>
+                  <rect x="556" y="133" width="36" height="6" rx="3" fill="url(#poleCylinder)"/>
+                  <!-- Cilindro Listrado Preto e Prata -->
+                  <rect x="560" y="138" width="28" height="134" fill="#111114"/>
+                  <g clip-path="url(#rightPoleClip)">
+                    <path d="M552 152 L596 126 M552 176 L596 150 M552 200 L596 174 M552 224 L596 198 M552 248 L596 222 M552 272 L596 246 M552 296 L596 270" stroke="url(#poleCylinder)" stroke-width="11"/>
+                  </g>
+                  <rect x="560" y="138" width="28" height="134" stroke="url(#metalSilver)" stroke-width="2" fill="none"/>
+                  <!-- Base Inferior & Esfera -->
+                  <rect x="556" y="271" width="36" height="6" rx="3" fill="url(#poleCylinder)"/>
+                  <circle cx="574" cy="288" r="14" fill="url(#poleCylinder)"/>
+                </g>
+
+                <!-- CENTRO: ASSINATURA CALIGRÁFICA "Nenê" -->
+                <g filter="url(#embossShadow)">
+                  <text x="340" y="232" text-anchor="middle" fill="url(#scriptMetal)" style="font-family: 'Kaushan Script', cursive; font-size: 132px; letter-spacing: 0.01em;">
+                    Nenê
+                  </text>
+                  <!-- Traço Curvo Metálico abaixo de "Nenê" -->
+                  <path d="M212 260 Q342 243 476 254 Q342 252 212 264 Z" fill="url(#metalSilver)"/>
+                </g>
+
+                <!-- SUBTÍTULO SERIFADO "BARBEARIA" + LOSANGOS + ESTRELA INFERIOR -->
+                <g filter="url(#embossShadow)">
+                  <!-- Linha divisória com losango central superior -->
+                  <line x1="175" y1="274" x2="332" y2="274" stroke="url(#metalSilver)" stroke-width="1.5" opacity="0.75"/>
+                  <polygon points="340,269 345,274 340,279 335,274" fill="url(#metalSilver)"/>
+                  <line x1="348" y1="274" x2="505" y2="274" stroke="url(#metalSilver)" stroke-width="1.5" opacity="0.75"/>
+
+                  <!-- Texto BARBEARIA -->
+                  <text x="340" y="311" text-anchor="middle" fill="url(#scriptMetal)" style="font-family: 'Cinzel', serif; font-size: 33px; font-weight: 700; letter-spacing: 0.25em;">
+                    BARBEARIA
+                  </text>
+
+                  <!-- Linha divisória inferior com losango -->
+                  <line x1="195" y1="325" x2="332" y2="325" stroke="url(#metalSilver)" stroke-width="1.5" opacity="0.75"/>
+                  <polygon points="340,320 345,325 340,330 335,325" fill="url(#metalSilver)"/>
+                  <line x1="348" y1="325" x2="485" y2="325" stroke="url(#metalSilver)" stroke-width="1.5" opacity="0.75"/>
+
+                  <!-- Estrela Central na Base -->
+                  <polygon points="340,336 344.5,348 357,348 347,355 351,367 340,359.5 329,367 333,355 323,348 335.5,348" fill="url(#metalSilver)"/>
+                </g>
+              </svg>
+
+              <!-- Card Flutuante de Próximo Horário Livre -->
+              <div class="mt-4 flex items-center justify-between bg-obsidian/90 border border-silver-300/15 rounded-2xl p-4">
+                <div class="flex items-center gap-3">
+                  <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <div>
+                    <p class="text-xs text-silver-400">Agenda Aberta Hoje</p>
+                    <p class="text-sm font-semibold text-silver-100">Reserve sua cadeira em segundos</p>
+                  </div>
+                </div>
+                <a href="#agendamento" class="text-xs font-serif font-bold uppercase tracking-wider text-silver-200 hover:text-white underline underline-offset-4">Marcar →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. CATÁLOGO DE CORTES E SERVIÇOS ==================== -->
+  <section id="catalogo" class="py-20 lg:py-28 bg-obsidian">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Cabeçalho da Seção -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <span class="text-silver-400 font-serif text-xs font-bold uppercase tracking-[0.25em]">Menu de Serviços</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-silver-100 mt-2 tracking-wide">Catálogo de Cortes &amp; Barba</h2>
+          <p class="text-silver-400 mt-2 max-w-xl text-sm sm:text-base">
+            Escolha o estilo ideal. Ao clicar em <strong class="text-silver-200">"Selecionar para Agendar"</strong>, o serviço é carregado automaticamente na nossa agenda.
+          </p>
+        </div>
+
+        <!-- Filtros por Categoria -->
+        <div id="category-filters" class="flex flex-wrap gap-2">
+          <button data-category="todos" class="filter-btn active px-4 py-2.5 rounded-xl text-sm font-bold btn-silver-metallic transition-all">
+            Todos
+          </button>
+          <button data-category="cortes" class="filter-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-graphite text-silver-300 hover:text-white border border-silver-300/15 transition-all">
+            Cortes
+          </button>
+          <button data-category="barba" class="filter-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-graphite text-silver-300 hover:text-white border border-silver-300/15 transition-all">
+            Barba
+          </button>
+          <button data-category="combos" class="filter-btn px-4 py-2.5 rounded-xl text-sm font-semibold bg-graphite text-silver-300 hover:text-white border border-silver-300/15 transition-all">
+            Combos
+          </button>
+        </div>
+      </div>
+
+      <!-- Grid de Cards do Catálogo (Renderizado via JS) -->
+      <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Preenchido dinamicamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. SISTEMA DE AGENDAMENTO INTERATIVO ==================== -->
+  <section id="agendamento" class="py-20 lg:py-28 bg-charcoal border-t border-silver-300/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+        <div>
+          <span class="text-silver-400 font-serif text-xs font-bold uppercase tracking-[0.25em]">Reserva Online</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-silver-100 mt-2 tracking-wide">Agende Seu Horário</h2>
+          <p class="text-silver-400 mt-2 text-sm sm:text-base">Sem filas de espera. Escolha seu barbeiro, o dia e o horário de preferência.</p>
+        </div>
+
+        <button onclick="openMyBookingsModal()" class="self-start md:self-auto inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-graphite hover:bg-white/10 text-silver-200 font-semibold text-sm border border-silver-300/25 transition-all">
+          <i class="fa-regular fa-calendar-check"></i>
+          <span>Meus Agendamentos (<span id="section-badge-count">0</span>)</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Formulário de Agendamento (7 colunas) -->
+        <form id="booking-form" class="lg:col-span-7 bg-obsidian border border-silver-300/15 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+          
+          <!-- Passo 1: Serviço -->
+          <div>
+            <label for="service-select" class="block text-sm font-semibold text-silver-200 mb-2">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-silver-200/15 text-silver-200 text-xs mr-1.5 border border-silver-300/20">1</span>
+              Escolha o Serviço
+            </label>
+            <select id="service-select" required class="w-full bg-graphite border border-silver-300/15 rounded-xl px-4 py-3.5 text-silver-100 focus:outline-none focus:border-silver-200 transition-colors">
+              <!-- Populado via JS -->
+            </select>
+          </div>
+
+          <!-- Passo 2: Barbeiro -->
+          <div>
+            <label class="block text-sm font-semibold text-silver-200 mb-3">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-silver-200/15 text-silver-200 text-xs mr-1.5 border border-silver-300/20">2</span>
+              Escolha o Profissional
+            </label>
+            <div id="barbers-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <!-- Populado via JS -->
+            </div>
+          </div>
+
+          <!-- Passo 3: Data -->
+          <div>
+            <label class="block text-sm font-semibold text-silver-200 mb-3">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-silver-200/15 text-silver-200 text-xs mr-1.5 border border-silver-300/20">3</span>
+              Selecione a Data
+            </label>
+            <div id="date-selector" class="grid grid-cols-4 sm:grid-cols-7 gap-2">
+              <!-- Populado com os próximos 7 dias úteis via JS -->
+            </div>
+          </div>
+
+          <!-- Passo 4: Horários Disponíveis -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <label class="block text-sm font-semibold text-silver-200">
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-silver-200/15 text-silver-200 text-xs mr-1.5 border border-silver-300/20">4</span>
+                Horários Disponíveis
+              </label>
+              <span class="text-xs text-silver-400 flex items-center gap-3">
+                <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-graphite border border-silver-300/20 inline-block"></span> Livre</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-red-950/60 border border-red-500/30 inline-block"></span> Ocupado</span>
+              </span>
+            </div>
+            <div id="time-slots-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
+              <!-- Populado via JS -->
+            </div>
+          </div>
+
+          <!-- Passo 5: Dados do Cliente -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-silver-300/15">
+            <div>
+              <label for="client-name" class="block text-xs font-semibold uppercase tracking-wider text-silver-400 mb-1.5">Seu Nome Completo *</label>
+              <input type="text" id="client-name" required placeholder="Ex: João Pedro Silva" class="w-full bg-graphite border border-silver-300/15 rounded-xl px-4 py-3 text-silver-100 placeholder-silver-500 focus:outline-none focus:border-silver-200" />
+            </div>
+            <div>
+              <label for="client-phone" class="block text-xs font-semibold uppercase tracking-wider text-silver-400 mb-1.5">WhatsApp / Telefone *</label>
+              <input type="tel" id="client-phone" required placeholder="(11) 99999-9999" maxlength="15" class="w-full bg-graphite border border-silver-300/15 rounded-xl px-4 py-3 text-silver-100 placeholder-silver-500 focus:outline-none focus:border-silver-200" />
+            </div>
+          </div>
+
+          <!-- Alerta de Validação Inline -->
+          <div id="form-error-box" class="hidden p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm flex items-center gap-2.5">
+            <i class="fa-solid fa-circle-exclamation text-red-400"></i>
+            <span id="form-error-text">Por favor, preencha todos os campos.</span>
+          </div>
+
+          <!-- Botões de Confirmação -->
+          <div class="space-y-3 pt-1">
+            <button type="button" onclick="submitBooking(true)" class="w-full py-4 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-bold text-base shadow-lg shadow-emerald-600/25 transition-all flex items-center justify-center gap-2.5">
+              <i class="fa-brands fa-whatsapp text-xl"></i>
+              <span>Confirmar e Enviar no WhatsApp</span>
+            </button>
+
+            <button type="submit" class="w-full py-3.5 px-5 rounded-xl btn-silver-metallic font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-check-circle"></i>
+              <span>Apenas Confirmar na Agenda</span>
+            </button>
+
+            <div class="flex items-center justify-between text-xs text-silver-400 pt-1 px-1">
+              <span class="flex items-center gap-1.5">
+                <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+                Destino: <strong id="active-barber-wa-label" class="text-silver-200">+55 (11) 99999-9999</strong>
+              </span>
+              <button type="button" onclick="openWhatsappConfigModal()" class="text-silver-200 hover:text-white underline font-medium">
+                Alterar número
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Cartão de Resumo em Tempo Real (5 colunas) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+          <div class="bg-obsidian border border-silver-300/25 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-silver-200/5 rounded-bl-full pointer-events-none"></div>
+            
+            <div class="flex items-center justify-between pb-4 border-b border-silver-300/15">
+              <h3 class="font-serif text-xl font-bold text-silver-100">Resumo da Reserva</h3>
+              <span class="px-2.5 py-1 rounded-md bg-graphite border border-silver-300/20 text-silver-200 text-xs font-semibold">Prévia</span>
+            </div>
+
+            <div class="space-y-4 my-6 text-sm">
+              <div class="flex justify-between items-start gap-4">
+                <span class="text-silver-400">Serviço</span>
+                <span id="summary-service" class="font-semibold text-silver-100 text-right">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-silver-400">Duração Estimada</span>
+                <span id="summary-duration" class="text-silver-200 flex items-center gap-1.5">
+                  <i class="fa-regular fa-clock text-silver-300"></i> —
+                </span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-silver-400">Barbeiro</span>
+                <span id="summary-barber" class="font-semibold text-silver-100">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-silver-400">Data</span>
+                <span id="summary-date" class="font-semibold text-silver-100">—</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-silver-400">Horário</span>
+                <span id="summary-time" class="px-2.5 py-0.5 rounded bg-graphite border border-silver-300/20 text-silver-100 font-bold">Selecione um horário</span>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-silver-300/15 flex items-baseline justify-between">
+              <span class="text-silver-300 font-medium">Total a Pagar no Local</span>
+              <span id="summary-price" class="font-serif text-3xl font-bold text-silver-metallic">R$ 0,00</span>
+            </div>
+
+            <p class="text-xs text-silver-500 mt-4 flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-silver-400"></i>
+              Cancelamento gratuito com até 2 horas de antecedência.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. RODAPÉ & CONTATO ==================== -->
+  <footer id="contato" class="bg-obsidian border-t border-silver-300/15 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-silver-300/15">
+        <!-- Marca -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <svg class="w-24 h-12" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="110" cy="60" rx="104" ry="54" fill="#121215" stroke="#D4D4D8" stroke-width="3.5"/>
+              <text x="110" y="64" text-anchor="middle" fill="#F4F4F5" style="font-family: 'Kaushan Script', cursive; font-size: 38px;">Nenê</text>
+              <path d="M62 72 Q110 67 158 72" stroke="#D4D4D8" stroke-width="2" stroke-linecap="round"/>
+              <text x="110" y="88" text-anchor="middle" fill="#A1A1AA" style="font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700; letter-spacing: 0.24em;">BARBEARIA</text>
+            </svg>
+            <div>
+              <span class="font-script text-2xl text-silver-100 block leading-none">Nenê</span>
+              <span class="font-serif text-[11px] font-bold tracking-[0.25em] text-silver-400 block mt-1">BARBEARIA</span>
+            </div>
+          </div>
+          <p class="text-sm text-silver-400 leading-relaxed">
+            Tradição da navalha, cortes clássicos e modernos com acabamento impecável em cada detalhe.
+          </p>
+          <div class="flex items-center gap-3 pt-1">
+            <a id="social-instagram" href="#contato" aria-label="Instagram" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-graphite hover:bg-silver-200 hover:text-obsidian text-silver-300 border border-silver-300/15 flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-instagram text-lg"></i>
+            </a>
+            <a id="social-facebook" href="#contato" aria-label="Facebook" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-graphite hover:bg-silver-200 hover:text-obsidian text-silver-300 border border-silver-300/15 flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a id="social-tiktok" href="#contato" aria-label="TikTok" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-graphite hover:bg-silver-200 hover:text-obsidian text-silver-300 border border-silver-300/15 flex items-center justify-center transition-colors">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Endereço -->
+        <div class="space-y-3">
+          <h4 class="font-serif text-base font-bold text-silver-100 uppercase tracking-[0.18em]">Onde Estamos</h4>
+          <p class="text-sm text-silver-400 flex items-start gap-2.5">
+            <i class="fa-solid fa-location-dot text-silver-200 mt-1"></i>
+            <span id="barbershop-address">Rua Dom Pedro II, 1420 — Bairro Jardim<br/>Santo André - SP, CEP 09080-000</span>
+          </p>
+          <p class="text-sm text-silver-400 flex items-center gap-2.5">
+            <i class="fa-solid fa-phone text-silver-200"></i>
+            <span id="barbershop-phone">(11) 4438-9021</span>
+          </p>
+          <p class="text-sm text-silver-400 flex items-center gap-2.5">
+            <i class="fa-brands fa-whatsapp text-emerald-400"></i>
+            <span id="footer-wa-display">+55 (11) 99999-9999</span>
+          </p>
+        </div>
+
+        <!-- Horário de Funcionamento -->
+        <div class="space-y-3">
+          <h4 class="font-serif text-base font-bold text-silver-100 uppercase tracking-[0.18em]">Funcionamento</h4>
+          <ul class="text-sm text-silver-400 space-y-2">
+            <li class="flex justify-between"><span>Segunda a Sexta:</span> <span id="hours-weekdays" class="text-silver-100 font-medium">09:00 às 20:00</span></li>
+            <li class="flex justify-between"><span>Sábado:</span> <span id="hours-saturday" class="text-silver-100 font-medium">08:30 às 18:00</span></li>
+            <li class="flex justify-between"><span>Domingo e Feriados:</span> <span id="hours-sunday" class="text-silver-300 font-semibold">Fechado</span></li>
+          </ul>
+        </div>
+
+        <!-- Links Rápidos -->
+        <div class="space-y-3">
+          <h4 class="font-serif text-base font-bold text-silver-100 uppercase tracking-[0.18em]">Acesso Rápido</h4>
+          <ul class="text-sm text-silver-400 space-y-2">
+            <li><a href="#inicio" class="hover:text-white transition-colors">Início</a></li>
+            <li><a href="#catalogo" class="hover:text-white transition-colors">Catálogo de Cortes</a></li>
+            <li><a href="#agendamento" class="hover:text-white transition-colors">Marcar Horário</a></li>
+            <li><button onclick="openMyBookingsModal()" class="hover:text-white transition-colors">Consultar Meus Agendamentos</button></li>
+            <li>
+              <button onclick="openWhatsappConfigModal()" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors font-medium">
+                <i class="fa-solid fa-gear text-xs"></i>
+                <span>Configurar WhatsApp da Barbearia</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-silver-500">
+        <p id="copyright-text">© 2026 Nenê Barbearia. Todos os direitos reservados.</p>
+        <p>
+          Tradição &amp; Estilo na Navalha •
+          <a id="creator-link" href="https://github.com/MatheusSaturno" target="_blank" rel="noopener noreferrer" class="text-silver-300 hover:text-white underline underline-offset-4 transition-colors">
+            Desenvolvido por Matheus Saturno
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão Flutuante WhatsApp -->
+  <a id="floating-whatsapp-btn" href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" aria-label="Dúvidas no WhatsApp" title="Dúvidas? Fale conosco no WhatsApp" class="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 bg-emerald-500 hover:bg-emerald-400 text-white px-4 py-3.5 rounded-full shadow-xl shadow-emerald-500/30 hover:scale-105 transition-all">
+    <i class="fa-brands fa-whatsapp text-2xl"></i>
+    <span class="hidden sm:inline text-xs font-bold pr-1">Dúvidas no WhatsApp</span>
+  </a>
+
+  <!-- ==================== MODAL 1: CONFIRMAÇÃO DE AGENDAMENTO ==================== -->
+  <div id="confirmation-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-charcoal border border-silver-300/30 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl animate-modal relative">
+      <button onclick="closeConfirmationModal()" class="absolute top-5 right-5 text-silver-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-3xl mx-auto mb-4">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+      <h3 class="font-serif text-2xl font-bold text-silver-100 text-center">Horário Confirmado!</h3>
+      <p class="text-sm text-silver-400 text-center mt-1">Sua cadeira na <strong class="text-silver-200">Nenê Barbearia</strong> está reservada:</p>
+
+      <div id="confirmation-details" class="mt-6 bg-obsidian border border-silver-300/15 rounded-2xl p-4 space-y-2.5 text-sm">
+        <!-- Preenchido via JS -->
+      </div>
+
+      <div class="mt-6 space-y-3">
+        <a id="whatsapp-receipt-link" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm flex items-center justify-center gap-2 transition-colors">
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          <span>Enviar Comprovante no WhatsApp</span>
+        </a>
+        <button onclick="closeConfirmationModal()" class="w-full py-3 rounded-xl bg-graphite hover:bg-white/10 text-silver-200 font-medium text-sm transition-colors">
+          Concluir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: MEUS AGENDAMENTOS ==================== -->
+  <div id="my-bookings-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-charcoal border border-silver-300/20 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl animate-modal max-h-[88vh] flex flex-col">
+      <div class="flex items-center justify-between pb-4 border-b border-silver-300/15">
+        <div>
+          <h3 class="font-serif text-xl sm:text-2xl font-bold text-silver-100">Meus Agendamentos</h3>
+          <p class="text-xs text-silver-400 mt-0.5">Gerencie, reenvie ou cancele seus horários marcados</p>
+        </div>
+        <button onclick="closeMyBookingsModal()" class="text-silver-400 hover:text-white p-2 rounded-lg bg-graphite">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="my-bookings-list" class="my-5 space-y-3 overflow-y-auto pr-1 flex-1">
+        <!-- Preenchido via JS -->
+      </div>
+
+      <div class="pt-3 border-t border-silver-300/15 flex justify-between items-center">
+        <span class="text-xs text-silver-400">Os dados ficam salvos neste navegador.</span>
+        <button onclick="closeMyBookingsModal()" class="px-5 py-2.5 rounded-xl btn-silver-metallic font-bold text-sm">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: CONFIGURAR WHATSAPP DA BARBEARIA ==================== -->
+  <div id="wa-config-modal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-charcoal border border-emerald-500/30 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl animate-modal relative">
+      <button onclick="closeWhatsappConfigModal()" class="absolute top-5 right-5 text-silver-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-2xl mb-4">
+        <i class="fa-brands fa-whatsapp"></i>
+      </div>
+
+      <h3 class="font-serif text-xl sm:text-2xl font-bold text-silver-100">WhatsApp Nenê Barbearia</h3>
+      <p class="text-xs sm:text-sm text-silver-400 mt-1">
+        Configure o número oficial que receberá os comprovantes de agendamento e avisos dos clientes.
+      </p>
+
+      <form id="wa-config-form" class="mt-5 space-y-4">
+        <div>
+          <label for="barbershop-wa-input" class="block text-xs font-semibold uppercase tracking-wider text-silver-300 mb-1.5">
+            Número com DDI + DDD (Somente Números)
+          </label>
+          <input type="tel" id="barbershop-wa-input" required placeholder="5511999999999" maxlength="15" class="w-full bg-obsidian border border-silver-300/20 rounded-xl px-4 py-3 text-silver-100 font-mono text-base focus:outline-none focus:border-emerald-500" />
+          <p class="text-[11px] text-silver-500 mt-1.5">Exemplo Brasil: <code class="text-silver-300">55</code> (Brasil) + <code class="text-silver-300">11</code> (DDD) + <code class="text-silver-300">999999999</code></p>
+        </div>
+
+        <div id="wa-config-error" class="hidden p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs">
+          Digite um número válido com DDI e DDD (mínimo 12 dígitos, ex: 5511999999999).
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <button type="button" onclick="resetDefaultWhatsapp()" class="px-4 py-3 rounded-xl bg-graphite hover:bg-white/10 text-silver-300 text-xs font-semibold border border-silver-300/15 transition-colors">
+            Restaurar Padrão
+          </button>
+          <button type="submit" class="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm transition-colors">
+            Salvar Número
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast de Feedback Rápido -->
+  <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden bg-graphite border border-silver-300/35 text-silver-100 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-medium">
+    <i class="fa-solid fa-circle-check text-silver-200"></i>
+    <span id="toast-message">Ação realizada!</span>
+  </div>
+
+  <!-- ==================== LÓGICA JAVASCRIPT ==================== -->
+  <script src="script.js"></script>
+</body>
+</html>

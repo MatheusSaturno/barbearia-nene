@@ -1,0 +1,46 @@
+/* Aparência geral da página */
+    body {
+      background-color: #0A0A0C;
+      color: #F4F4F5;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0C;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27272A;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A1A1AA;
+    }
+    .hero-pattern {
+      background-image: radial-gradient(circle at 75% 32%, rgba(228, 228, 231, 0.10) 0%, rgba(10, 10, 12, 0.96) 56%),
+                        linear-gradient(to bottom, rgba(10, 10, 12, 0.45), #0A0A0C);
+    }
+    /* Gradientes metálicos em Prata / Aço Escovado */
+    .btn-silver-metallic {
+      background: linear-gradient(135deg, #F4F4F5 0%, #D4D4D8 48%, #9CA3AF 100%);
+      color: #0A0A0C;
+      box-shadow: 0 10px 25px -5px rgba(228, 228, 231, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    }
+    .btn-silver-metallic:hover {
+      background: linear-gradient(135deg, #FFFFFF 0%, #E4E4E7 50%, #A1A1AA 100%);
+      filter: brightness(1.04);
+    }
+    .text-silver-metallic {
+      background: linear-gradient(180deg, #FFFFFF 0%, #D4D4D8 55%, #8E8E98 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* Animação suave para modais */
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-modal {
+      animation: fadeInScale 0.25s ease-out forwards;
+    }
